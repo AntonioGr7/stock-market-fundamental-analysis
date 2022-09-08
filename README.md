@@ -18,10 +18,13 @@ streamlit run streamlit_main.py
 
 ## Example
 
-Insert ticker symbol in the text box on the left and click on "Load Data"
+# ticker symbol in the text box on the left and click on "Load Data"
 
 ![image 1](./images/1.JPG)
 ![image 2](./images/2.JPG)
+
+#Then insert your desired parameters to calculate discounted cash flow
+
 ![image 3](./images/3.JPG)
 ![image 4](./images/4.JPG)
 ![image 5](./images/5.JPG)
