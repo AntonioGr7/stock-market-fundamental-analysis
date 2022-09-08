@@ -54,81 +54,11 @@ class AnalysisEngine:
             self.debt['Debt to Equity'].append(self.ratio.debtequity[i])
 
         self.debt_dataframe = pd.DataFrame.from_dict(self.debt)
-
-
-
-        '''self.output.loc['Price FCF ratio'] = self.ratio.pfcf[0]
-        self.output.loc['FCF Margin'] = fcf_margin
-        self.output.loc["Net Margin"] = net_income_margin
-        self.output.loc["PE Ratio"] = self.ratio.pe[0]
-        self.output.loc['Market Cap/EBT'] = market_cap_to_ebt
-        self.output.loc['Buffet Indicator'] = buffet_ebt_indicator.to_list()'''
-
         self.general_information = {"Share Price":self.__share_price__()}
 
 
-    def enterprise_value_to_ebt_analysis(self,years=5,discount_rate=0.125,terminal_value=14,ebt_margin=None,revenue_growth_rate=[0.1],shares_out=None):
-        current_year_revenue = self.yf_data.analysis
-        revenue_estimates_y0 = current_year_revenue.loc['0Y']
-        revenue_estimates_y1 = current_year_revenue.loc['+1Y']
-        #revenue_estimates_y5 = current_year_revenue.loc['+5Y']
-
-        #growth_0y = revenue_estimates_y0.loc['Revenue Estimate Growth']
-        #growth_1y = revenue_estimates_y1.loc['Revenue Estimate Growth']
-
-        # growth_5y = (revenue_estimates_y5.loc['Growth']*5 - growth_1y)/4
-        normalization_value = 1000000000
-        #last_r = analyst_revenue[::-1][0]
-        average_growth_rate = np.mean(revenue_growth_rate)
-        self.terminal_information = {"Terminal Multiple": [terminal_value], "Discount Rate": [discount_rate], "Rev Growth Rate": [average_growth_rate]}
-        last_year = self.output.columns[-2].split('-')[0]
-        yf = [f"{int(last_year) + i}" for i in range(1, years + 1)]  # + ["TV"]
-
-        if ebt_margin is None:
-            min_ebt_margin_average = np.mean([m for m in self.growths.loc['EBT Margin Average'][0:3] if m > 0])
-        else:
-            min_ebt_margin_average = ebt_margin
-
-        future_revenues = [revenue_estimates_y0.loc['Revenue Estimate Avg'] / normalization_value,
-                           revenue_estimates_y1.loc['Revenue Estimate Avg'] / normalization_value]
-        last_year_revenue = future_revenues[1]
-        revenue_growth_splitted = np.array_split(range(0, years), len(revenue_growth_rate))
-        yfr = {}
-        j = 0
-        for y in range(2, years):
-            if y not in revenue_growth_splitted[j]:
-                j = j + 1
-            revenue_growth = revenue_growth_rate[j]
-            next_y_revenue = last_year_revenue * (1 + revenue_growth)
-            future_revenues.append(next_y_revenue)
-            last_year_revenue = next_y_revenue
-        for i,y in enumerate(yf):
-            last_shares_out = self.output.loc['Shares Out'][::-1][1]
-            last_value_custom_ebt = future_revenues[i]*(min_ebt_margin_average/100)
-
-            yfr[y] = {
-                "Revenue":future_revenues[i],
-                "Ebt Margin":min_ebt_margin_average,
-                "Projected Ebt":last_value_custom_ebt
-        }
-
-        self.future_ebtda = pd.DataFrame(yfr)
-
-        if shares_out is None:
-            future_shares_out = self.__future_shares_outstanding__(self.output.loc['Shares Out'][::-1][1],
-                                                                   self.growths.loc['Shares Out Growth']['3Y'], 3)
-        else:
-            future_shares_out = shares_out
-
-        self.ev_final =  last_value_custom_ebt * self.terminal_information['Terminal Multiple'][0]
-        self.shares_prices_final = self.ev_final/ future_shares_out
-
-        data_out_analyst = {"Final Fair Enterprise Value": [self.ev_final],
-                            "Future Shares Out": [future_shares_out],
-                            "Final Fair Share Price": [self.shares_prices_final],
-                            "Actual Fair Share Price":[(self.shares_prices_final)/(1+discount_rate)**years]}
-
-        self.data_out_ebt_analysis = pd.DataFrame.from_dict(data_out_analyst)
+    def enterprise_value_to_ebitda_analysis(self,years=5,discount_rate=0.125,terminal_value=14,ebitda_margin=None,revenue_growth_rate=[0.1],shares_out=None):
+        print("not implemented yet")
 
     def discounted_cash_flow_analysis(self,years=5,discount_rate=0.125,terminal_value=14,perpetuity_growth=0.02,fcf_margin=None,net_margin=None,revenue_growth_rate=[0.1],shares_out=None):
         current_year_revenue = self.yf_data.analysis

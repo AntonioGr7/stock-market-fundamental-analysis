@@ -24,7 +24,7 @@ def execute_model():
             st.dataframe(engine.cf,height=1000,width=2000)
                 #st.dataframe(engine.quality_check_dataframe.T.style.applymap(color,subset=['valuation']),height=1000, width=2000)'''
             st.dataframe(engine.growths,height=1000,width=2000)
-            option = st.selectbox("Valuation Method", ['Discount Methods','EV/Ebit'], index=0)
+            option = st.selectbox("Valuation Method", ['Discount Methods','EV/Ebitda'], index=0)
             if option=="Discount Methods":
                 col1,col2,col3 = st.columns(3)
                 with col1:
@@ -64,7 +64,6 @@ def execute_model():
                         discount_rate = 0.125
                     else:
                         discount_rate = float(discount_rate)/100
-                    print("D",discount_rate)
                     engine.discounted_cash_flow_analysis(
                         years=years,
                         discount_rate=discount_rate,
@@ -75,7 +74,8 @@ def execute_model():
                     st.dataframe(engine.terminal_information, width=1000, height=2000)
                     st.dataframe(engine.discount_cash_flow_final_custom,width=1000,height=2000)
                     st.dataframe(engine.discount_cash_flow_final_analyst,width=1000,height=2000)
-            if option == "EV/Ebit":
+            if option == "EV/Ebitda":
+                st.error("Not implemented yet")
                 col1, col2  = st.columns(2)
                 with col1:
                     years = st.selectbox("Years of Analysis", [3, 5, 7, 10])
@@ -83,9 +83,9 @@ def execute_model():
                         "Revenue Growth % (You could insert multiple growth rate separated by ',' - es. 10,8)",
                         placeholder="10")
                     discount_rate = st.text_input("Discount Rate", placeholder="12.5")
-                    fair_value_btn = st.button("EV/Ebt Valuation", disabled=False)
+                    fair_value_btn = st.button("EV/Ebitda Valuation", disabled=False)
                 with col2:
-                    ebtda_margin = st.text_input("Ebt Margin %", placeholder="10")
+                    ebtda_margin = st.text_input("Ebitda Margin %", placeholder="10")
                     terminal_multiple = st.text_input("Terminal Value", placeholder="10")
                 if fair_value_btn:
                     if len(terminal_multiple) == 0:
@@ -105,14 +105,15 @@ def execute_model():
                         discount_rate = 0.125
                     else:
                         discount_rate = float(discount_rate) / 100
-                    engine.enterprise_value_to_ebt_analysis(
-                        years=years,
-                        discount_rate=discount_rate,
-                        terminal_value=terminal_multiple,
-                        revenue_growth_rate=revenue_gr, ebt_margin=ebitda_margin)
-                    st.dataframe(engine.future_ebtda, height=1000, width=2000)
+                    #engine.enterprise_value_to_ebitda_analysis(
+                    #    years=years,
+                    #    discount_rate=discount_rate,
+                    #    terminal_value=terminal_multiple,
+                    #    revenue_growth_rate=revenue_gr, ebitda_margin=ebitda_margin)
+                    
+                    st.dataframe(engine.future_ebitda, height=1000, width=2000)
                     st.dataframe(engine.terminal_information, width=1000, height=2000)
-                    st.dataframe(engine.data_out_ebt_analysis,width=1000,height=2000)
+                    st.dataframe(engine.data_out_ebitda_analysis,width=1000,height=2000)
         except Exception as e:
             print(repr(e))
 

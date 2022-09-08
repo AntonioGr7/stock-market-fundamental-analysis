@@ -7,11 +7,11 @@ if __name__ == '__main__':
     engine.growth_analysis()
 
     #engine.analysis_quality_check()
-    '''engine.enterprise_value_to_ebt_analysis(
+    '''engine.enterprise_value_to_ebitda_analysis(
         years=10,
         discount_rate=0.125,
         terminal_value=10,
-        revenue_growth_rate=[0.10], ebt_margin=46)'''
+        revenue_growth_rate=[0.10], ebitda_margin=46)'''
 
     engine.discounted_cash_flow_analysis(years=10, discount_rate=0.125, terminal_value=18,
                                          perpetuity_growth=0.05,
