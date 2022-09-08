@@ -16,6 +16,15 @@ In the source folder
 streamlit run streamlit_main.py
 ```
 
+## Example
+
+![image 1](./images/1.JPG)
+![image 2](./images/2.JPG)
+![image 3](./images/3.JPG)
+![image 4](./images/4.JPG)
+![image 5](./images/5.JPG)
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
