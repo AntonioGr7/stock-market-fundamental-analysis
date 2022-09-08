@@ -2,7 +2,6 @@ pandas
 selenium
 streamlit==1.8.1
 yfinance==0.1.70
-fastapi==0.78.0
 envyaml==1.10.211231
 dependency-injector==4.39.1
 loguru==0.6.0

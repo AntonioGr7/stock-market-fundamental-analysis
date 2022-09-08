@@ -176,7 +176,10 @@ class AnalysisEngine:
 
 
         if shares_out is None:
-            future_shares_out = self.__future_shares_outstanding__(last_shares_out,sum(self.income.sharesYoY[1:4])/3)
+            try:
+                future_shares_out = self.__future_shares_outstanding__(last_shares_out,sum(self.income.sharesYoY[1:4])/3)
+            except:
+                future_shares_out = last_shares_out
         else:
             future_shares_out = shares_out
         if math.isnan(future_shares_out):
