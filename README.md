@@ -18,7 +18,7 @@ streamlit run streamlit_main.py
 
 ## Example
 
-### ticker symbol in the text box on the left and click on "Load Data"
+### Insert the ticker symbol in the text box on the left and click on "Load Data"
 
 ![image 1](./images/1.JPG)
 ![image 2](./images/2.JPG)
